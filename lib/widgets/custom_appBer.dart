@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'custom_icon.dart';
+
 class CustomAppber extends StatelessWidget {
   const CustomAppber({super.key});
 
@@ -8,7 +10,8 @@ class CustomAppber extends StatelessWidget {
     return Row(
       children: [
         Text("Notes", style: TextStyle(fontSize: 28)),
-        CustomAppber(),
+        Spacer(),
+        CustomIcon(),
       ],
     );
   }

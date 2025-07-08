@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'custom_appBer.dart';
 import 'custom_note_item.dart';
+import 'notes_list_view.dart';
 
 class NotesViewBody extends StatelessWidget {
   const NotesViewBody({super.key});
@@ -10,9 +11,13 @@ class NotesViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(26),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
-        children: [SizedBox(height: 50), CustomAppber(), NoteItems()],
+        children: [
+          SizedBox(height: 50),
+          CustomAppber(),
+          Expanded(child: NotesListView()),
+        ],
       ),
     );
   }

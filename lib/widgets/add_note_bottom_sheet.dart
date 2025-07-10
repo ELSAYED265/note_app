@@ -39,7 +39,6 @@ class _AddNoteFormState extends State<AddNoteForm> {
             hintText: "Title",
             onsave: (val) {
               title = val;
-              print("sucess");
             },
           ),
           SizedBox(height: 16),
@@ -48,7 +47,6 @@ class _AddNoteFormState extends State<AddNoteForm> {
             MaxLine: 5,
             onsave: (val) {
               subTitle = val;
-              print("sucess");
             },
           ),
           SizedBox(height: 50),

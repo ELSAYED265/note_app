@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:note_app/models/note_model.dart';
 import 'package:note_app/widgets/edite_note_view_body.dart';
 
 import '../views/edite_note_view.dart';
 
-class NoteItems extends StatelessWidget {
-  const NoteItems({super.key});
+class NoteItems extends StatefulWidget {
+  const NoteItems({super.key, required this.note});
+  final NoteModel note;
 
+  @override
+  State<NoteItems> createState() => _NoteItemsState();
+}
+
+class _NoteItemsState extends State<NoteItems> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -23,7 +30,7 @@ class NoteItems extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.only(top: 24, bottom: 24, left: 16),
         decoration: BoxDecoration(
-          color: Colors.yellow,
+          color: Color(widget.note.color),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -31,18 +38,21 @@ class NoteItems extends StatelessWidget {
           children: [
             ListTile(
               title: Text(
-                "Flutter tips ",
+                widget.note.title,
                 style: TextStyle(fontSize: 24, color: Colors.black),
               ),
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 16, bottom: 16),
                 child: Text(
-                  "build your career with threat samie",
+                  widget.note.subtitle,
                   style: TextStyle(color: Colors.black.withAlpha(100)),
                 ),
               ),
               trailing: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  widget.note.delete();
+                  setState(() {});
+                },
                 color: Colors.black,
                 icon: Icon(FontAwesomeIcons.trash, size: 24),
               ),
@@ -50,7 +60,7 @@ class NoteItems extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 24),
               child: Text(
-                "May21 ,2022",
+                widget.note.date,
                 style: TextStyle(
                   color: Colors.black.withAlpha(100),
                   fontSize: 16,

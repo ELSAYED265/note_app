@@ -5,6 +5,9 @@ import 'package:note_app/models/note_model.dart';
 import 'package:note_app/widgets/custom_appBer.dart';
 import 'package:note_app/widgets/custom_text_field.dart';
 
+import '../constant.dart';
+import 'color_list_view.dart';
+
 class EditeNoteViewBody extends StatefulWidget {
   const EditeNoteViewBody({super.key, required this.note});
   final NoteModel note;
@@ -43,7 +46,7 @@ class _EditeNoteViewBodyState extends State<EditeNoteViewBody> {
                 title = val;
               },
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 20),
             CustomTextField(
               hintText: widget.note.subtitle,
               MaxLine: 5,
@@ -51,8 +54,51 @@ class _EditeNoteViewBodyState extends State<EditeNoteViewBody> {
                 content = val;
               },
             ),
+            SizedBox(height: 16),
+            editNoteColorList(note: widget.note),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class editNoteColorList extends StatefulWidget {
+  const editNoteColorList({super.key, required this.note});
+  final NoteModel note;
+
+  @override
+  State<editNoteColorList> createState() => _editNoteColorListState();
+}
+
+class _editNoteColorListState extends State<editNoteColorList> {
+  late int currentIndex;
+  @override
+  void initState() {
+    currentIndex = kColors.indexOf(Color(widget.note.color));
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 38 * 2,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              currentIndex = index;
+              widget.note.color = kColors[index].value;
+              setState(() {});
+            },
+            child: ColorItem(
+              isActive: currentIndex == index,
+              color: kColors[index],
+            ),
+          );
+        },
+        itemCount: kColors.length,
       ),
     );
   }

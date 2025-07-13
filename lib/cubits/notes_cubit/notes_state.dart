@@ -5,14 +5,14 @@ sealed class NotesState {}
 
 final class NotesInitial extends NotesState {}
 
-class AddnoteLoaded extends NotesState {}
+class noteLoaded extends NotesState {}
 
-class AddnoteSuccess extends NotesState {
+class noteSuccess extends NotesState {
   List<NoteModel> notes;
-  AddnoteSuccess(this.notes);
+  noteSuccess(this.notes);
 }
 
-class AddnoteFailer extends NotesState {
+class noteFailer extends NotesState {
   final String errMassage;
-  AddnoteFailer(this.errMassage);
+  noteFailer(this.errMassage);
 }

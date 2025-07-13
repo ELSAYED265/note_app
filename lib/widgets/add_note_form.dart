@@ -5,6 +5,7 @@ import 'package:note_app/cubits/add_note_cubit/add_note_cubit.dart';
 import 'package:note_app/models/note_model.dart';
 
 import 'add_note_form.dart';
+import 'color_list_view.dart';
 import 'custom_buttom.dart';
 import 'custom_text_field.dart';
 
@@ -20,7 +21,6 @@ class _AddNoteFormState extends State<AddNoteForm> {
   GlobalKey<FormState> formkey = GlobalKey();
   String? title;
   String? subTitle;
-
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -43,7 +43,9 @@ class _AddNoteFormState extends State<AddNoteForm> {
               subTitle = val;
             },
           ),
-          SizedBox(height: 50),
+          SizedBox(height: 32),
+          ColorListView(),
+          SizedBox(height: 32),
           BlocBuilder<AddNoteCubit, AddNoteState>(
             builder: (context, state) {
               return CustomButtom(
@@ -51,13 +53,13 @@ class _AddNoteFormState extends State<AddNoteForm> {
                 onTap: () {
                   if (formkey.currentState!.validate()) {
                     formkey.currentState!.save();
-                    var notemodel = NoteModel(
+                    var noteModel = NoteModel(
                       title: title!,
                       subtitle: subTitle!,
                       date: DateFormat('dd MMMM yyyy').format(DateTime.now()),
                       color: Colors.blue.value,
                     );
-                    BlocProvider.of<AddNoteCubit>(context).addNote(notemodel);
+                    BlocProvider.of<AddNoteCubit>(context).addNote(noteModel!);
                   } else {
                     autovalidateMode = AutovalidateMode.always;
                     setState(() {});

@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:note_app/cubits/notes_cubit/notes_cubit.dart';
 import 'package:note_app/models/note_model.dart';
 import 'package:note_app/widgets/edite_note_view_body.dart';
 
 import '../views/edite_note_view.dart';
 
-class NoteItems extends StatefulWidget {
+class NoteItems extends StatelessWidget {
   const NoteItems({super.key, required this.note});
   final NoteModel note;
 
-  @override
-  State<NoteItems> createState() => _NoteItemsState();
-}
-
-class _NoteItemsState extends State<NoteItems> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -30,7 +27,7 @@ class _NoteItemsState extends State<NoteItems> {
       child: Container(
         padding: const EdgeInsets.only(top: 24, bottom: 24, left: 16),
         decoration: BoxDecoration(
-          color: Color(widget.note.color),
+          color: Color(note.color),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -38,20 +35,20 @@ class _NoteItemsState extends State<NoteItems> {
           children: [
             ListTile(
               title: Text(
-                widget.note.title,
+                note.title,
                 style: TextStyle(fontSize: 24, color: Colors.black),
               ),
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 16, bottom: 16),
                 child: Text(
-                  widget.note.subtitle,
+                  note.subtitle,
                   style: TextStyle(color: Colors.black.withAlpha(100)),
                 ),
               ),
               trailing: IconButton(
                 onPressed: () {
-                  widget.note.delete();
-                  setState(() {});
+                  note.delete();
+                  BlocProvider.of<NotesCubit>(context).fetchALlNotes();
                 },
                 color: Colors.black,
                 icon: Icon(FontAwesomeIcons.trash, size: 24),
@@ -60,7 +57,7 @@ class _NoteItemsState extends State<NoteItems> {
             Padding(
               padding: const EdgeInsets.only(right: 24),
               child: Text(
-                widget.note.date,
+                note.date,
                 style: TextStyle(
                   color: Colors.black.withAlpha(100),
                   fontSize: 16,
